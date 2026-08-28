@@ -5,12 +5,14 @@ import NoteList from './NoteList';
 import Editor from './Editor';
 import Modal from '../ui/Modal';
 import ShortcutsPanel from '../ui/ShortcutsPanel';
-import { Menu } from 'lucide-react';
+import { Menu, ArrowLeft, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useKeyboardShortcuts } from '../../hooks/useKeyboardShortcuts';
 import { SHORTCUTS } from '../../config/shortcuts';
 import '../../index.css';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -191,15 +193,27 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       {/* Mobile App Header */}
-      {isMobile && !showEditorMobile && (
+      {isMobile && (
         <div className="mobile-app-header">
-          <button className="icon-btn" onClick={() => setMobileMenuOpen(true)}>
-            <Menu size={20} />
-          </button>
-          <div className="sidebar-logo">
+          {showEditorMobile ? (
+            <button className="icon-btn" onClick={handleBackToList}>
+              <ArrowLeft size={20} />
+            </button>
+          ) : (
+            <button className="icon-btn" onClick={() => setMobileMenuOpen(true)}>
+              <Menu size={20} />
+            </button>
+          )}
+          <div className="sidebar-logo" style={{ cursor: 'pointer' }} onClick={() => { if (showEditorMobile) handleBackToList(); }}>
             NNS<span>_</span>
           </div>
-          <div style={{ width: 40 }} /> {/* Spacer to balance flex */}
+          {!showEditorMobile ? (
+            <button className="icon-btn" onClick={() => navigate('/profile')}>
+              <User size={20} />
+            </button>
+          ) : (
+            <div style={{ width: 40 }} /> /* Spacer to balance flex */
+          )}
         </div>
       )}
 
@@ -212,22 +226,24 @@ const Dashboard = () => {
       />
       
       {showSidebarAndList && (
-        <NoteList 
-            notes={notes}
-            loading={loading}
-            error={error}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedNoteId={selectedNote?._id}
-            onSelectNote={handleSelectNote}
-            isMobile={isMobile}
-            showEditorMobile={showEditorMobile}
-            searchInputRef={searchInputRef}
-          />
+        <div className={`note-list-container ${isMobile && showEditorMobile ? 'mobile-hidden' : ''}`}>
+          <NoteList 
+              notes={notes}
+              loading={loading}
+              error={error}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedNoteId={selectedNote?._id}
+              onSelectNote={handleSelectNote}
+              isMobile={isMobile}
+              showEditorMobile={showEditorMobile}
+              searchInputRef={searchInputRef}
+            />
+        </div>
       )}
       
       {showEditor && (
-        <div className="editor-container">
+        <div className="editor-container" style={isMobile && !showEditorMobile ? { display: 'none' } : {}}>
           <Editor 
             note={selectedNote} 
             onUpdate={handleUpdateNote}

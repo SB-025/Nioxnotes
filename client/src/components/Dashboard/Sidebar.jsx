@@ -20,7 +20,10 @@ const Sidebar = ({ onCreateNote, isMobile, isOpen, onClose }) => {
     };
     
     const handleEscape = (e) => {
-      if (e.key === 'Escape') setShowMenu(false);
+      if (e.key === 'Escape') {
+        setShowMenu(false);
+        if (isMobile && onClose) onClose();
+      }
     };
 
     if (showMenu) {

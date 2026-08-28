@@ -221,11 +221,6 @@ const Editor = ({
     <div className="editor-container">
       <div className="editor-header">
         <div className="editor-header-left">
-          {isMobile && (
-            <button className="icon-btn" onClick={onBack} title="Back to list">
-              <ArrowLeft size={20} />
-            </button>
-          )}
           <input 
             type="text" 
             className="title-input" 

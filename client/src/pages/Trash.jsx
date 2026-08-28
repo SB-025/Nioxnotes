@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { notesApi } from '../api/notesApi';
 import Sidebar from '../components/Dashboard/Sidebar';
 import Modal from '../components/ui/Modal';
-import { Loader2, RotateCcw, X, FileText } from 'lucide-react';
+import { Loader2, RotateCcw, X, FileText, Menu, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
 
 const Trash = () => {
@@ -10,6 +11,8 @@ const Trash = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
@@ -66,7 +69,26 @@ const Trash = () => {
 
   return (
     <div className="dashboard">
-      <Sidebar isMobile={isMobile} showEditorMobile={false} />
+      {/* Mobile App Header */}
+      {isMobile && (
+        <div className="mobile-app-header">
+          <button className="icon-btn" onClick={() => setMobileMenuOpen(true)}>
+            <Menu size={20} />
+          </button>
+          <div className="sidebar-logo">
+            NNS<span>_</span>
+          </div>
+          <button className="icon-btn" onClick={() => navigate('/profile')}>
+            <User size={20} />
+          </button>
+        </div>
+      )}
+
+      <Sidebar 
+        isMobile={isMobile} 
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
       
       <div className="editor-container" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--border-main)', display: 'flex', alignItems: 'center' }}>
