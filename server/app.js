@@ -11,7 +11,9 @@ const shareRoutes = require('./routes/share');
 const app = express();
 
 // Security Middleware
-app.use(helmet()); // Set standard HTTP security headers
+app.use(helmet({
+  crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+})); // Set standard HTTP security headers
 
 // Rate limiting for auth endpoints to prevent brute force
 const authLimiter = rateLimit({
