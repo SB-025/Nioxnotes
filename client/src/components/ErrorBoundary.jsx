@@ -21,6 +21,10 @@ class ErrorBoundary extends React.Component {
           <h1 style={{ fontFamily: 'VT323, monospace', fontSize: '2rem', color: '#FF6A00' }}>NNS</h1>
           <h2 style={{ fontFamily: 'VT323, monospace', fontSize: '1.5rem', marginBottom: '1rem' }}>APPLICATION ERROR</h2>
           <p style={{ color: '#999', marginBottom: '2rem' }}>Something went wrong while loading NNS.</p>
+          <div style={{ background: '#111', padding: '1rem', border: '1px solid #333', textAlign: 'left', overflow: 'auto', maxWidth: '80vw', marginBottom: '2rem', fontSize: '12px', fontFamily: 'monospace' }}>
+            <p style={{ color: '#ff4444' }}>{this.state.error && this.state.error.toString()}</p>
+            <pre style={{ color: '#888', whiteSpace: 'pre-wrap' }}>{this.state.error && this.state.error.stack}</pre>
+          </div>
           <div style={{ display: 'flex', gap: '1rem' }}>
             <button 
               onClick={() => window.location.reload()}
