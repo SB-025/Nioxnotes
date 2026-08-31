@@ -125,14 +125,16 @@ const Dashboard = () => {
       const data = await notesApi.uploadImage(noteId, formData);
       setNotes(prevNotes => prevNotes.map(n => {
         if (n._id === noteId) {
-          const updatedNote = { ...n, attachments: [...(n.attachments || []), data.attachment] };
-          if (selectedNote && selectedNote._id === noteId) {
-            setSelectedNote(updatedNote);
-          }
-          return updatedNote;
+          return { ...n, attachments: [...(n.attachments || []), data.attachment] };
         }
         return n;
       }));
+      if (selectedNote && selectedNote._id === noteId) {
+        setSelectedNote(prev => ({
+          ...prev,
+          attachments: [...(prev.attachments || []), data.attachment]
+        }));
+      }
     } catch (err) {
       throw err;
     }
@@ -143,13 +145,13 @@ const Dashboard = () => {
       const data = await notesApi.deleteImage(noteId, attachmentId);
       setNotes(prevNotes => prevNotes.map(n => {
         if (n._id === noteId) {
-          if (selectedNote && selectedNote._id === noteId) {
-            setSelectedNote(data.note);
-          }
           return data.note;
         }
         return n;
       }));
+      if (selectedNote && selectedNote._id === noteId) {
+        setSelectedNote(data.note);
+      }
     } catch (err) {
       throw err;
     }
