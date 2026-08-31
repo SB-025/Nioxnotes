@@ -4,8 +4,6 @@ import { Trash2, X } from 'lucide-react';
 const ImageGallery = ({ attachments, onRemoveImage }) => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  if (!attachments || attachments.length === 0) return null;
-
   const openLightbox = (index) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
 
@@ -18,6 +16,8 @@ const ImageGallery = ({ attachments, onRemoveImage }) => {
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [lightboxIndex]);
+
+  if (!attachments || attachments.length === 0) return null;
 
   return (
     <div className="image-gallery-container">
