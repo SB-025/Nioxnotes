@@ -66,7 +66,7 @@ exports.createSpace = async (req, res) => {
     res.cookie('anonymous_session', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000 // 24 hours
     });
 
@@ -112,7 +112,7 @@ exports.joinSpace = async (req, res) => {
     res.cookie('anonymous_session', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000
     });
 
@@ -128,7 +128,7 @@ exports.leaveSpace = async (req, res) => {
     res.clearCookie('anonymous_session', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict'
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     });
     res.status(200).json({ message: 'Left space' });
   } catch (error) {

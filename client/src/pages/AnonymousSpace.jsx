@@ -99,7 +99,7 @@ const AnonymousSpace = () => {
           <button 
             onClick={handleLeave} 
             className="icon-btn" 
-            style={{ color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-pixel)', fontSize: '0.9rem' }}
+            style={{ width: 'auto', padding: '0 12px', color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-pixel)', fontSize: '0.9rem' }}
           >
             <ArrowLeft size={18} /> EXIT
           </button>
