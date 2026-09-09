@@ -70,9 +70,12 @@ const Login = () => {
               </div>
             )}
             
-            <div style={{ marginTop: '2.5rem' }}>
+            <div style={{ marginTop: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <Button type="submit" loading={loading} style={{ fontFamily: 'var(--font-pixel)', fontSize: '1.25rem', letterSpacing: '0.1em' }}>
                 SIGN IN
+              </Button>
+              <Button type="button" variant="secondary" onClick={() => navigate('/anonymous')} style={{ fontFamily: 'var(--font-pixel)', fontSize: '1.25rem', letterSpacing: '0.1em' }}>
+                ANONYMOUS NOTES
               </Button>
             </div>
           </form>
@@ -113,6 +116,7 @@ const Login = () => {
               CREATE ACCOUNT
             </Link>
           </div>
+
         </div>
       </div>
     </div>

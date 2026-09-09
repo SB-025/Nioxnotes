@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const authRoutes = require('./routes/auth');
 const notesRoutes = require('./routes/notes');
 const shareRoutes = require('./routes/share');
+const anonymousRoutes = require('./routes/anonymous');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/api/auth/login', authLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', notesRoutes);
 app.use('/api/share', shareRoutes);
+app.use('/api/anonymous', anonymousRoutes);
 
 // Health Route
 app.get('/api/health', (req, res) => {

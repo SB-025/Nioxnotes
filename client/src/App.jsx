@@ -9,6 +9,8 @@ import CompleteProfile from './pages/CompleteProfile';
 import SharedNote from './pages/SharedNote';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
+import AnonymousEntry from './pages/AnonymousEntry';
+import AnonymousSpace from './pages/AnonymousSpace';
 
 function App() {
   return (
@@ -31,6 +33,10 @@ function App() {
           
           {/* Public Shared Note Route */}
           <Route path="/share/:token" element={<SharedNote />} />
+
+          {/* Anonymous Notes Routes */}
+          <Route path="/anonymous" element={<AnonymousEntry />} />
+          <Route path="/anonymous/space" element={<AnonymousSpace />} />
 
           {/* Redirect root to notes */}
           <Route path="/" element={<Navigate to="/notes" replace />} />
